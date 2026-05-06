@@ -13,8 +13,6 @@ Current v1 contract set:
 - `Beav3rAuthorizationVerifier`
 - `Beav3rExecutorCloneable`
 - `Beav3rExecutorFactory`
-- `demo/Beav3rTestUSDT`
-- `demo/Phase5DemoToken`
 
 The canonical v1 executor is the cloneable executor. Beav3r provisions an
 executor clone for an actor account, returns that executor address, and
@@ -27,7 +25,7 @@ integrators grant downstream permissions to that returned address.
 
 ## Layout
 
-- `src`: protocol contracts and demos
+- `src`: protocol contracts
 - `test`: Foundry coverage, including golden vectors
 - `spec`: protocol JSON spec and vectors
 - `deployments`: published deployment artifacts
