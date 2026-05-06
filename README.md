@@ -1,11 +1,11 @@
-# beav3r-protocol
+# Beav3r Protocol
 
 Dedicated Foundry repo for the Beav3r onchain protocol contracts.
 
-This repo publishes the Solidity contract surface for Beav3r's onchain
-authorization and executor model so integrators can inspect the contracts,
-verify deployed bytecode, and understand the trust boundary around the
-provisioned executor address.
+This repo publishes the Solidity contract surface for the Beav3r onchain
+authorization and executor model. It exists for contract inspection, deployed
+bytecode verification, and trust-boundary clarity around the provisioned
+executor address.
 
 Current v1 contract set:
 
@@ -14,9 +14,20 @@ Current v1 contract set:
 - `Beav3rExecutorCloneable`
 - `Beav3rExecutorFactory`
 
+`Beav3rAuthorizationVerifier` is the trust bridge between Beav3r approvals and
+onchain execution. It resolves the trusted signer for an `(account, keyId)`
+pair from `Beav3rSignerRegistry`, recomputes the EIP-712 digest for the
+authorization payload, and proves that the submitted signature came from the
+registered signer for that account.
+
 The canonical v1 executor is the cloneable executor. Beav3r provisions an
 executor clone for an actor account, returns that executor address, and
 integrators grant downstream permissions to that returned address.
+
+Normal integrations do not need to call or import these contracts directly.
+Beav3r operates the registry, verifier, and factory. Integrators usually only
+need the provisioned executor address that downstream contracts trust or
+whitelist.
 
 `Beav3rSignerRegistry` has two operational roles:
 
@@ -38,17 +49,19 @@ forge test
 forge fmt
 ```
 
-## Install
+## Deployments
 
-```sh
-forge install beav3r-ai/beav3r-protocol
-```
+### Base Sepolia
 
-Then import contracts from the installed repo, for example:
+| Field | Value |
+| --- | --- |
+| Network | Base Sepolia |
+| Chain ID | `84532` |
+| Signer Registry | [`0x32638Cd8f41BCd4cb3BBaDb6A6d0CBB3f57bAd7e`](https://sepolia.basescan.org/address/0x32638Cd8f41BCd4cb3BBaDb6A6d0CBB3f57bAd7e) |
+| Authorization Verifier | [`0xBc63acbdaD244E0fA6fDBb5c552ED04B7F624900`](https://sepolia.basescan.org/address/0xBc63acbdaD244E0fA6fDBb5c552ED04B7F624900) |
 
-```solidity
-import {IBeav3rSignerRegistry} from "beav3r-protocol/src/interfaces/IBeav3rSignerRegistry.sol";
-```
+No mainnet deployment is published yet.
 
-See [DEPLOYMENTS.md](DEPLOYMENTS.md) for the current published Base Sepolia
-deployment set.
+See [DEPLOYMENTS.md](DEPLOYMENTS.md) and
+[`deployments/base-sepolia.json`](deployments/base-sepolia.json) for the
+current published deployment artifact and baseline capture.
