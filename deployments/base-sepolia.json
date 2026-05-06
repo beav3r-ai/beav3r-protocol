@@ -1,0 +1,47 @@
+{
+  "network": "base-sepolia",
+  "chainId": 84532,
+  "capturedAt": "2026-05-06",
+  "source": {
+    "repository": "beav3r-server",
+    "headCommit": "344e839c0f2ca5d5a0d8a9a5ddec23ae9a2855f0",
+    "worktreeDirtyAtCapture": true
+  },
+  "toolchain": {
+    "forge": {
+      "version": "1.5.1-stable",
+      "commit": "b0a9dd9ceda36f63e2326ce530c10e6916f4b8a2",
+      "buildProfile": "maxperf"
+    },
+    "solc": {
+      "version": "0.8.33+commit.64118f21",
+      "source": "foundry artifact metadata"
+    },
+    "foundry": {
+      "evmVersion": "prague",
+      "optimizerEnabled": false,
+      "optimizerRuns": 200
+    }
+  },
+  "contracts": {
+    "Beav3rSignerRegistry": {
+      "address": "0x32638Cd8f41BCd4cb3BBaDb6A6d0CBB3f57bAd7e",
+      "deploymentTxHash": null
+    },
+    "Beav3rAuthorizationVerifier": {
+      "address": "0xBc63acbdaD244E0fA6fDBb5c552ED04B7F624900",
+      "deploymentTxHash": null
+    },
+    "Beav3rExecutorFactory": {
+      "address": "0x3A83BFfb42A12797FC2653347CD72FFb1a3EF7CC",
+      "deploymentTxHash": null
+    }
+  },
+  "roles": {
+    "registrar": "0xF073DcF8741C3A1d467cb092bb74084b2D1f1f86"
+  },
+  "notes": [
+    "Deployment transaction hashes were not available in repo broadcast artifacts at capture time.",
+    "Public docs intentionally publish only Signer Registry and Authorization Verifier."
+  ]
+}

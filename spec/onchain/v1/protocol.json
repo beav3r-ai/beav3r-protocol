@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "protocol": {
+    "id": "beav3r.onchain.execution_authorization",
+    "version": "onchain-v1",
+    "status": "frozen"
+  },
+  "artifact": {
+    "version": "onchain-v1",
+    "signatureAlgorithm": "eip712-secp256k1"
+  },
+  "eip712": {
+    "domain": {
+      "type": "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)",
+      "name": "Beav3rExecutionAuthorization",
+      "version": "1",
+      "chainId": "auth.chainId",
+      "verifyingContract": "auth.executor"
+    },
+    "primaryType": "ExecutionAuthorization",
+    "types": {
+      "ExecutionAuthorization": [
+        { "name": "actionHash", "type": "bytes32" },
+        { "name": "account", "type": "address" },
+        { "name": "executor", "type": "address" },
+        { "name": "chainId", "type": "uint256" },
+        { "name": "nonce", "type": "uint256" },
+        { "name": "expiresAt", "type": "uint256" },
+        { "name": "keyId", "type": "bytes32" }
+      ]
+    }
+  },
+  "actionHash": {
+    "algorithm": "keccak256",
+    "encoding": "abi.encode",
+    "fields": [
+      { "name": "account", "type": "address" },
+      { "name": "to", "type": "address" },
+      { "name": "value", "type": "uint256" },
+      { "name": "dataHash", "type": "bytes32", "source": "keccak256(data)" },
+      { "name": "chainId", "type": "uint256" },
+      { "name": "nonce", "type": "uint256" },
+      { "name": "expiresAt", "type": "uint256" },
+      { "name": "executor", "type": "address" }
+    ]
+  },
+  "keyId": {
+    "publicType": "string",
+    "onchainType": "bytes32",
+    "derivation": "keccak256(bytes(humanReadableKeyId))"
+  },
+  "replay": {
+    "namespace": ["account", "nonce"],
+    "spentBy": "executeWithAuth",
+    "burnOnFailedVerification": false
+  },
+  "executor": {
+    "function": "executeWithAuth(address to,uint256 value,bytes data,(bytes32 actionHash,address account,address executor,uint256 chainId,uint256 nonce,uint256 expiresAt,bytes32 keyId) auth,bytes signature)",
+    "nonceStorage": "mapping(address account => mapping(uint256 nonce => bool used))"
+  }
+}

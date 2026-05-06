@@ -1,0 +1,12 @@
+{
+  "name": "beav3r-protocol",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Dedicated Foundry repo for Beav3r protocol contracts",
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test",
+    "fmt": "forge fmt"
+  },
+  "license": "MIT"
+}

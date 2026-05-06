@@ -1,0 +1,15 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+fs_permissions = [{ access = "read", path = "./spec" }]
+
+[rpc_endpoints]
+base-testnet = "${ONCHAIN_PROVISION_RPC_URL}"
+base-sepolia = "${ONCHAIN_PROVISION_RPC_URL}"
+
+[etherscan]
+base-testnet = { key = "${ETHERSCAN_API_KEY}", chain = 84532, url = "https://api.etherscan.io/v2/api?chainid=84532" }
+base-sepolia = { key = "${ETHERSCAN_API_KEY}", chain = 84532, url = "https://api.etherscan.io/v2/api?chainid=84532" }
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

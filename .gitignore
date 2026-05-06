@@ -1,0 +1,15 @@
+node_modules/
+
+# Local secrets and machine-specific config
+.env
+.env.*
+!.env.example
+
+# Forge build artifacts
+cache/
+out/
+broadcast/
+
+# Common local junk
+*.log
+.DS_Store
