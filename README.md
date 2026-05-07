@@ -16,6 +16,7 @@ Current v1 contract set:
 - `Beav3rAuthorizationVerifier`
 - `Beav3rExecutorCloneable`
 - `Beav3rExecutorFactory`
+- `Beav3rCustomExecutorBase` (abstract base for custom executors)
 
 `Beav3rAuthorizationVerifier` is the trust bridge between Beav3r approvals and
 onchain execution. It resolves the trusted signer for an `(account, keyId)`
