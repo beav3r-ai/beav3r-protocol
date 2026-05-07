@@ -2,13 +2,51 @@
 
 Dedicated Foundry repo for the Beav3r onchain protocol contracts.
 
-Smart contracts documentation: https://docs.beav3r.ai/smart-contracts
-Onchain demo script: https://github.com/beav3r-ai/beav3r-demo/blob/main/onchain-example.mjs
-
 This repo publishes the Solidity contract surface for the Beav3r onchain
 authorization and executor model. It exists for contract inspection, deployed
 bytecode verification, and trust-boundary clarity around the provisioned
 executor address.
+
+Smart contracts documentation: https://docs.beav3r.ai/smart-contracts
+
+Onchain demo script: https://github.com/beav3r-ai/beav3r-demo/blob/main/onchain-example.mjs
+
+## The Protocol
+
+Beav3r separates **intent** from **authority**:
+
+- agents can propose actions, but they do not have authority by default
+- Beav3r issues a signed authorization artifact for a specific action
+- executors verify that artifact before any action can run
+
+Onchain, the verifier and executor contracts enforce this directly. An action
+is only allowed when authorization is valid, unexpired, correctly scoped, and
+unused (single-use nonce replay protection).
+
+In short: no valid artifact, no execution.
+
+```text
+Agent proposes action
+        |
+        v
+Beav3r evaluates policy + approval rules
+        |
+        v
+Beav3r signs authorization artifact
+        |
+        v
+Executor receives (action + artifact)
+        |
+        v
+Verifier checks signer, scope, expiry, nonce, action binding
+        |
+   +----+----+
+   |         |
+ valid     invalid
+   |         |
+   v         v
+execute     reject
+```
 
 Current v1 contract set:
 
@@ -24,6 +62,10 @@ pair from `Beav3rSignerRegistry`, recomputes the EIP-712 digest for the
 authorization payload, and proves that the submitted signature came from the
 registered signer for that account.
 
+Signing algorithm (onchain):
+- message format: EIP-712 typed structured data
+- signature scheme: secp256k1 ECDSA (`r,s,v`) with signer recovery onchain
+
 The canonical v1 executor is the cloneable executor. Beav3r provisions an
 executor clone for an actor account, returns that executor address, and
 integrators grant downstream permissions to that returned address.
@@ -38,20 +80,7 @@ whitelist.
 - owner: deployer wallet at initial deployment time; can transfer ownership and rotate the registrar
 - registrar: hot operational wallet allowed to configure and disable account signer mappings
 
-## Layout
 
-- `src`: protocol contracts
-- `test`: Foundry coverage, including golden vectors
-- `spec`: protocol JSON spec and vectors
-- `deployments`: published deployment artifacts
-
-## Commands
-
-```sh
-forge build
-forge test
-forge fmt
-```
 
 ## Deployments
 
