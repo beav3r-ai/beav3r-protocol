@@ -38,7 +38,12 @@ Beav3r signs authorization artifact
 Executor receives (action + artifact)
         |
         v
-Verifier checks signer, scope, expiry, nonce, action binding
+Executor verifies artifact (via verifier):
+- signer
+- scope
+- expiry
+- nonce
+- action binding
         |
    +----+----+
    |         |
