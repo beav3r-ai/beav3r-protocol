@@ -3,6 +3,7 @@
 Dedicated Foundry repo for the Beav3r onchain protocol contracts.
 
 Smart contracts documentation: https://docs.beav3r.ai/smart-contracts
+Onchain demo script: https://github.com/beav3r-ai/beav3r-demo/blob/main/onchain-example.mjs
 
 This repo publishes the Solidity contract surface for the Beav3r onchain
 authorization and executor model. It exists for contract inspection, deployed
